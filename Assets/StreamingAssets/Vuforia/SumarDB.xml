@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="Icono_Interrogacion" size="100.000000 155.875305" />
+    <ImageTarget name="x" size="100.000000 137.117905" />
+    <ImageTarget name="igu" size="100.000000 137.117905" />
+    <ImageTarget name="div" size="100.000000 137.117905" />
+    <ImageTarget name="9" size="100.000000 137.117905" />
+    <ImageTarget name="8" size="100.000000 137.117905" />
+    <ImageTarget name="na" size="100.000000 137.117905" />
+    <ImageTarget name="7" size="100.000000 137.554581" />
+    <ImageTarget name="6" size="100.000000 137.117905" />
+    <ImageTarget name="5" size="100.000000 137.117905" />
+    <ImageTarget name="4" size="100.000000 137.117905" />
+    <ImageTarget name="3" size="100.000000 137.117905" />
+    <ImageTarget name="2" size="100.000000 137.719299" />
+    <ImageTarget name="1" size="100.000000 137.117905" />
+    <ImageTarget name="0" size="100.000000 137.719299" />
+    <ImageTarget name="mas" size="100.000000 137.117905" />
+    <ImageTarget name="-" size="100.000000 137.719299" />
+  </Tracking>
+</QCARConfig>
