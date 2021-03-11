@@ -41,7 +41,7 @@ public class GetInfo : MonoBehaviour
 		WWWForm form = new WWWForm();
 		form.AddField("code_estudiante", studentcode);
 
-		string url = "http://localhost/UnityTesis/GetActIDs.php";
+		string url = "http://localhost/UnityTesis/pedir_datos.php";
 
 		UnityWebRequest request = UnityWebRequest.Post(url, form);
 		//UnityWebRequest request = UnityWebRequest.Get (url);

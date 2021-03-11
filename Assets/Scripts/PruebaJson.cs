@@ -10,13 +10,16 @@ public class PruebaJson : MonoBehaviour
 	// Este fue el script que use de prueba para instanciar estoy trabajando para unirlo con lo demas y empezar a dejar funcionando todo.
 
 	public InputField inputFieldActivity;
+	public InputField inputFieldstudent;
+
+
 
 	[System.Serializable]
 	public struct Game
 	{
-		public string pregunta;	
-		public string respuesta;
-		public int tipo_pregunta;
+		public string pregunta;
+		public string tipo_pregunta;
+		public string respuesta;		
 		public string opciones;
 	}
     
@@ -25,11 +28,12 @@ public class PruebaJson : MonoBehaviour
 
 	void Start ()
 	{
-		StartCoroutine (GetGames (inputFieldActivity.text));
+		StartCoroutine(GetGames(inputFieldActivity.text, inputFieldstudent.text));
 
 	}
-	public void Entrara(){
-
+	public void Entrara()
+	{
+		
 	}
 
 	void DrawUI ()
@@ -53,28 +57,64 @@ public class PruebaJson : MonoBehaviour
 	}
 
 	//***************************************************
-	IEnumerator GetGames (string activitycode)
+	IEnumerator GetGames (string studentcode, string activitycode)
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("code_actividad", activitycode);
+		form.AddField("code_estudiante", studentcode);
 
-		string url = "http://localhost/UnityTesis/GetActIDs.php";
+		using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityTesis/pedir_datos.php",form)){
+			yield return www.Send();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+				Debug.Log("error");
+            }
+            else
+            {
+				Debug.Log("detalles" + www.downloadHandler.text);
+				string jsonArray = www.downloadHandler.text;
+				DrawUI();
+			}
+        }
+
+
+
+		/*
+		string url = "http://localhost/UnityTesis/pedir_datos.php";
         
 		UnityWebRequest request = UnityWebRequest.Post (url, form);
 		//UnityWebRequest request = UnityWebRequest.Get (url);
-		//request.chunkedTransfer = false;
+		request.chunkedTransfer = false;
 		yield return request.SendWebRequest();
 
 		if (request.isNetworkError) {
 			//show message "no internet "
 		} else {
 			if (request.isDone) {
+				//StartCoroutine(jsontest());
 				allGames = JsonHelper.GetArray<Game> (request.downloadHandler.text);
 				Debug.Log(request.downloadHandler.text);
 				DrawUI ();
 	            
 			}
 		}
-			
+			*/
 	}
+
+
+
+	/*
+	IEnumerator jsontest()
+    {
+		WWW myWWW = new WWW(Application.dataPath + "http://localhost/UnityTesis/pedir_datos.php");   // UTF-8 encoded json file on the server
+		yield return myWWW;
+		string jsonData = "";
+		if (string.IsNullOrEmpty(myWWW.error))
+		{
+			jsonData = System.Text.Encoding.UTF8.GetString(myWWW.bytes, 3, myWWW.bytes.Length - 3);  // Skip thr first 3 bytes (i.e. the UTF8 BOM)
+			JSONObject json = new JSONObject(jsonData);   // JSONObject works now
+		}
+	} */
+
 }

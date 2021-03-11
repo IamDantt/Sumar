@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class JsonHelper
+﻿public class JsonHelper
 {
 	public static T[] GetArray<T> (string json)
 	{
@@ -16,4 +12,3 @@ public class JsonHelper
 		public T[] data;
 	}
 }
-

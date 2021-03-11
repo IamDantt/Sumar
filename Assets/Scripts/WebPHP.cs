@@ -12,10 +12,23 @@ public class WebPHP : MonoBehaviour
 
     public Text Nombre;
 
-   void Start()
+    /*
+    [System.Serializable]
+    public struct Game
     {
+        public string pregunta;
+        public string tipo_pregunta;
+        public string respuesta;
+        public string opciones;
+    }
 
-       
+    public Game[] allGames;
+
+    */
+    void Start()
+    {
+        
+
     }
  
     public void Entrar()
@@ -64,7 +77,7 @@ public class WebPHP : MonoBehaviour
         form.AddField("code_estudiante", studentcode);
         form.AddField("code_actividad", activitycode);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityTesis/carga.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityTesis/pedir_datos.php", form))
         {
             yield return www.SendWebRequest();
 
@@ -76,33 +89,63 @@ public class WebPHP : MonoBehaviour
             else
             {
                 //Panel de inicio
+               
                 Welcome.SetActive(true);
                 StartPant.SetActive(false);
                 Debug.Log("Login Succes");
                 Debug.Log(www.downloadHandler.text);
                 Nombre.text = www.downloadHandler.text.ToString();
+                //DrawUI();
 
             }
             
         }
     }
 
-     IEnumerator GetActID(string activitycode)
+    /*
+    void DrawUI()
+    {
+        GameObject buttonTemplate = transform.GetChild(0).gameObject;
+        GameObject g;
+
+        int N = allGames.Length;
+
+        for (int i = 0; i < N; i++)
+        {
+            g = Instantiate(buttonTemplate, transform);
+
+            g.transform.GetChild(0).GetComponent<Text>().text = allGames[i].pregunta;
+            g.transform.GetChild(1).GetComponent<Text>().text = allGames[i].opciones;
+
+        }
+        Destroy(buttonTemplate);
+    }
+    */
+    IEnumerator GetActID(string activitycode)
     {
         WWWForm form = new WWWForm();
         form.AddField("code_actividad", activitycode);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityTesis/GetActIDs.php", form))
+        using (UnityWebRequest request = UnityWebRequest.Post("http://localhost/UnityTesis/pedir_datos.php", form))
         {
-            yield return www.SendWebRequest();
+            yield return request.SendWebRequest();
 
-            if (www.isNetworkError || www.isHttpError)
+            if (request.isNetworkError || request.isHttpError)
             {
-                Debug.Log(www.error);
+                Debug.Log(request.error);
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);              
+              /*  WWW myWWW = new WWW(Application.dataPath + "http://localhost/UnityTesis/pedir_datos.php");   // UTF-8 encoded json file on the server
+                yield return myWWW;
+                string jsonData = "";
+                if (string.IsNullOrEmpty(myWWW.error))
+                {
+                    jsonData = System.Text.Encoding.UTF8.GetString(myWWW.bytes, 3, myWWW.bytes.Length - 3);  // Skip thr first 3 bytes (i.e. the UTF8 BOM)
+                    JSONObject json = new JSONObject(jsonData);   // JSONObject works now
+                } */
+
+                Debug.Log(request.downloadHandler.text);
             }
         }
     }
