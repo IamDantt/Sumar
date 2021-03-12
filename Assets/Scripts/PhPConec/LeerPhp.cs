@@ -19,8 +19,8 @@ public static class ButtonExtension
 public class LeerPhp : MonoBehaviour
 {
 
-	public GameObject panel2,panel;
-	public Text pregunta, opciones;
+	public GameObject panel2, panel;
+	public Text pregunta, opc0, opc1, opc2, opc3;
 
 	[System.Serializable]
 	public struct Activity
@@ -31,13 +31,18 @@ public class LeerPhp : MonoBehaviour
 		public string opciones;
 	}
 
+	public string[] _DivOpciones;
+
 	public Activity[] allAtivity;
 
-    void Start ()
-    {
+	void Start()
+	{
 		panel2.SetActive(false);
 		panel.SetActive(true);
 		StartCoroutine(GetActivity());
+
+		
+
 	}
 
 	void DrawUI()
@@ -53,7 +58,7 @@ public class LeerPhp : MonoBehaviour
 
 			g.transform.GetChild(1).GetComponent<Text>().text = allAtivity[i].pregunta;
 
-			g.GetComponent<Button> ().AddEventListener(i, ItemClicked);
+			g.GetComponent<Button>().AddEventListener(i, ItemClicked);
 
 		}
 
@@ -61,7 +66,7 @@ public class LeerPhp : MonoBehaviour
 	}
 
 	IEnumerator GetActivity()
-    {
+	{
 		string url = "http://localhost/UnityTesis/pedir_datos.php";
 
 		UnityWebRequest request = UnityWebRequest.Get(url);
@@ -75,7 +80,7 @@ public class LeerPhp : MonoBehaviour
 		else
 		{
 			if (request.isDone)
-			{				
+			{
 				allAtivity = JsonHelper.GetArray<Activity>(request.downloadHandler.text);
 				Debug.Log(request.downloadHandler.text);
 				DrawUI();
@@ -85,12 +90,26 @@ public class LeerPhp : MonoBehaviour
 	}
 
 	void ItemClicked(int intemIndex)
-    {
+	{
 		panel2.SetActive(true);
 		panel.SetActive(false);
 
 		pregunta.text = allAtivity[intemIndex].pregunta.ToString();
-		opciones.text = allAtivity[intemIndex].opciones.ToString();
+		_DivOpciones = allAtivity[intemIndex].opciones.Split('-');
+
+		for (int i = 0; i < _DivOpciones.Length; i++)
+        {
+			opc0.text = _DivOpciones[0].ToString();
+			opc1.text = _DivOpciones[1].ToString();
+			opc2.text = _DivOpciones[2].ToString();
+			opc3.text = _DivOpciones[3].ToString();
+		}
+
+		
 	}
 
+	public void DivOpciones()
+    {
+		
+    }
 }
