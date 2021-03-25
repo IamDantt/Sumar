@@ -5,18 +5,18 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
-public static class ButtonExtension
+public static class ButtonExtension2
 {
-	public static void AddEventListener<T>(this Button button, T param, Action<T> OnClick)
-    {
-        button.onClick.AddListener(delegate(){
+	public static void AddEventListener2<T>(this Button button, T param, Action<T> OnClick)
+	{
+		button.onClick.AddListener(delegate () {
 			OnClick(param);
-        });
-    }
+		});
+	}
 }
 
 
-public class LeerPhp : MonoBehaviour
+public class Borrador : MonoBehaviour
 {
 
 	public InputField inputFieldActivity;
@@ -44,9 +44,9 @@ public class LeerPhp : MonoBehaviour
 		panel2.SetActive(true);
 		panel.SetActive(true);
 		panel0.SetActive(true);
-		
 
-		
+
+
 
 	}
 
@@ -54,14 +54,14 @@ public class LeerPhp : MonoBehaviour
 	{
 		if (!string.IsNullOrEmpty(inputFieldstudent.text) && !string.IsNullOrEmpty(inputFieldActivity.text))
 		{
-			
+
 			StartCoroutine(login(inputFieldstudent.text, inputFieldActivity.text));
 
 
 		}
 		if (!string.IsNullOrEmpty(inputFieldActivity.text))
 		{
-			StartCoroutine(GetActivity(inputFieldActivity.text , inputFieldstudent.text));
+			StartCoroutine(GetActivity(inputFieldActivity.text, inputFieldstudent.text));
 
 		}
 	}
@@ -90,7 +90,7 @@ public class LeerPhp : MonoBehaviour
 				panel2.SetActive(false);
 				panel.SetActive(true);
 				panel0.SetActive(false);
-				//DrawUI();
+				DrawUI();
 
 			}
 
@@ -158,18 +158,18 @@ public class LeerPhp : MonoBehaviour
 		_DivOpciones = allAtivity[intemIndex].opciones.Split('-');
 
 		for (int i = 0; i < _DivOpciones.Length; i++)
-        {
+		{
 			opc0.text = _DivOpciones[0].ToString();
 			opc1.text = _DivOpciones[1].ToString();
 			opc2.text = _DivOpciones[2].ToString();
 			opc3.text = _DivOpciones[3].ToString();
 		}
 
-		
+
 	}
 
 	public void DivOpciones()
-    {
-		
-    }
+	{
+
+	}
 }

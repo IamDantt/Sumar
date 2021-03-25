@@ -6,11 +6,11 @@ using UnityEngine.Networking;
 
 public class WebPHP : MonoBehaviour
 {
-    public GameObject StartPant, Welcome;
+    //public GameObject StartPant, Welcome;
     public InputField inputFieldstudent;
     public InputField inputFieldActivity;
 
-    public Text Nombre;
+    //public Text Nombre;
 
     /*
     [System.Serializable]
@@ -48,25 +48,7 @@ public class WebPHP : MonoBehaviour
         }    
     }
 
-    IEnumerator GetRequest(string uri)
-    {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
-        {
-            yield return webRequest.SendWebRequest();
-
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
-            if (webRequest.isNetworkError)
-            {
-                Debug.Log(pages[page] + ": Error: " + webRequest.error);
-            }
-            else
-            {
-                Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
-            }
-        }
-    }
+   
 
 
     // Courotine Login
@@ -88,39 +70,16 @@ public class WebPHP : MonoBehaviour
             }
             else
             {
-                //Panel de inicio
+                
+                //Debug.Log("Login Succes");
+                //Debug.Log(www.downloadHandler.text);
                
-                Welcome.SetActive(true);
-                StartPant.SetActive(false);
-                Debug.Log("Login Succes");
-                Debug.Log(www.downloadHandler.text);
-                Nombre.text = www.downloadHandler.text.ToString();
-                //DrawUI();
 
             }
             
         }
     }
 
-    /*
-    void DrawUI()
-    {
-        GameObject buttonTemplate = transform.GetChild(0).gameObject;
-        GameObject g;
-
-        int N = allGames.Length;
-
-        for (int i = 0; i < N; i++)
-        {
-            g = Instantiate(buttonTemplate, transform);
-
-            g.transform.GetChild(0).GetComponent<Text>().text = allGames[i].pregunta;
-            g.transform.GetChild(1).GetComponent<Text>().text = allGames[i].opciones;
-
-        }
-        Destroy(buttonTemplate);
-    }
-    */
     IEnumerator GetActID(string activitycode)
     {
         WWWForm form = new WWWForm();
@@ -136,16 +95,27 @@ public class WebPHP : MonoBehaviour
             }
             else
             {
-              /*  WWW myWWW = new WWW(Application.dataPath + "http://localhost/UnityTesis/pedir_datos.php");   // UTF-8 encoded json file on the server
-                yield return myWWW;
-                string jsonData = "";
-                if (string.IsNullOrEmpty(myWWW.error))
-                {
-                    jsonData = System.Text.Encoding.UTF8.GetString(myWWW.bytes, 3, myWWW.bytes.Length - 3);  // Skip thr first 3 bytes (i.e. the UTF8 BOM)
-                    JSONObject json = new JSONObject(jsonData);   // JSONObject works now
-                } */
-
                 Debug.Log(request.downloadHandler.text);
+            }
+        }
+    }
+
+    IEnumerator GetRequest(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log(pages[page] + ": Error: " + webRequest.error);
+            }
+            else
+            {
+                Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
             }
         }
     }
