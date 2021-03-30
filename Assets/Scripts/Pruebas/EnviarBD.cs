@@ -7,11 +7,13 @@ public class EnviarBD : MonoBehaviour
 {
     
     public string id_Pregunta, id_Persona, id_Actividad, Respuesta;
+    public GameObject panelMenu, panelOpc, aviso_Text;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        aviso_Text.SetActive(false);
     }
 
     // Update is called once per frame
@@ -38,7 +40,17 @@ public class EnviarBD : MonoBehaviour
         {
             yield return www.Send();
             Debug.Log(www.downloadHandler.text);
+            panelMenu.SetActive(true);
+            panelOpc.SetActive(false);
+            StartCoroutine(OffAviso());
         }
+    }
+
+    IEnumerator OffAviso()
+    {
+        aviso_Text.SetActive(true);
+        yield return new WaitForSeconds(2);
+        aviso_Text.SetActive(false);
     }
 
 }
