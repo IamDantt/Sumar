@@ -26,6 +26,10 @@ public class LeerPhp : MonoBehaviour
 	public GameObject panel2, panel, panel0;
 	public Text pregunta, opc0, opc1, opc2, opc3;
 
+	public Button Btn_Enviar;
+
+	[SerializeField] Text info;
+
 	[System.Serializable]
 	public struct Activity
 	{
@@ -65,7 +69,10 @@ public class LeerPhp : MonoBehaviour
 
 		}
 	}
-
+	public void verifyInputs()
+	{
+		Btn_Enviar.interactable = (inputFieldstudent.text.Length >= 5 && inputFieldActivity.text.Length >= 3);
+	}
 
 	IEnumerator login(string studentcode, string activitycode)
 	{
@@ -79,6 +86,7 @@ public class LeerPhp : MonoBehaviour
 
 			if (www.isNetworkError || www.isHttpError)
 			{
+				
 				Debug.Log(www.error);
 				Debug.Log("Error Login");
 			}
@@ -87,9 +95,7 @@ public class LeerPhp : MonoBehaviour
 
 				//Debug.Log("Login Succes");
 				//Debug.Log(www.downloadHandler.text);
-				panel2.SetActive(false);
-				panel.SetActive(true);
-				panel0.SetActive(false);
+				
 				//DrawUI();
 
 			}
@@ -120,9 +126,15 @@ public class LeerPhp : MonoBehaviour
 		{
 			if (request.isDone)
 			{
-				allAtivity = JsonHelper.GetArray<Activity>(request.downloadHandler.text);
-				Debug.Log(request.downloadHandler.text);
-				DrawUI();
+				
+					allAtivity = JsonHelper.GetArray<Activity>(request.downloadHandler.text);
+					Debug.Log(request.downloadHandler.text);
+					info.text = request.downloadHandler.text.ToString();
+					DrawUI();
+				panel2.SetActive(false);
+				panel.SetActive(true);
+				panel0.SetActive(false);
+
 
 			}
 		}
