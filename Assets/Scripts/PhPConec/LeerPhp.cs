@@ -23,12 +23,15 @@ public class LeerPhp : MonoBehaviour
 	public InputField inputFieldstudent;
 
 
-	public GameObject panel2, panel, panel0;
+	public GameObject panel2, panelMenu, panel, panel0;
 	public Text pregunta, opc0, opc1, opc2, opc3;
 
 	public Button Btn_Enviar;
 
 	[SerializeField] Text info;
+
+	public string Respuesta;
+	
 
 	[System.Serializable]
 	public struct Activity
@@ -45,14 +48,16 @@ public class LeerPhp : MonoBehaviour
 
 	void Start()
 	{
+		
+
+		
+
 		panel2.SetActive(true);
 		panel.SetActive(true);
 		panel0.SetActive(true);
-		
-
-		
 
 	}
+
 
 	public void Entrar()
 	{
@@ -132,7 +137,7 @@ public class LeerPhp : MonoBehaviour
 					info.text = request.downloadHandler.text.ToString();
 					DrawUI();
 				panel2.SetActive(false);
-				panel.SetActive(true);
+				panelMenu.SetActive(true);
 				panel0.SetActive(false);
 
 
@@ -163,25 +168,27 @@ public class LeerPhp : MonoBehaviour
 
 	void ItemClicked(int intemIndex)
 	{
+		
+
 		panel2.SetActive(true);
-		panel.SetActive(false);
+		panelMenu.SetActive(false);
+		
 
 		pregunta.text = allAtivity[intemIndex].pregunta.ToString();
-		_DivOpciones = allAtivity[intemIndex].opciones.Split('-');
+		_DivOpciones = allAtivity[intemIndex].opciones.Split('-');	
+		
 
 		for (int i = 0; i < _DivOpciones.Length; i++)
         {
-			opc0.text = _DivOpciones[0].ToString();
+			opc0.text = _DivOpciones[0].ToString();			
 			opc1.text = _DivOpciones[1].ToString();
 			opc2.text = _DivOpciones[2].ToString();
 			opc3.text = _DivOpciones[3].ToString();
 		}
 
-		
+
+
 	}
 
-	public void DivOpciones()
-    {
-		
-    }
+	
 }
