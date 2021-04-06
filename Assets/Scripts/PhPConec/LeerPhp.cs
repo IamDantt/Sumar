@@ -24,7 +24,7 @@ public class LeerPhp : MonoBehaviour
 
 
 	public GameObject panel2, panelMenu, panel, panel0;
-	public Text pregunta, opc0, opc1, opc2, opc3;
+	public Text pregunta, opc0, opc1, opc2, opc3, NameUser;
 
 	public Button Btn_Enviar;
 
@@ -98,10 +98,7 @@ public class LeerPhp : MonoBehaviour
 			else
 			{
 
-				//Debug.Log("Login Succes");
-				//Debug.Log(www.downloadHandler.text);
-				
-				//DrawUI();
+				NameUser.text = studentcode.ToString();
 
 			}
 
@@ -190,5 +187,9 @@ public class LeerPhp : MonoBehaviour
 
 	}
 
+	public void GetUserName()
+    {
+
+    }
 	
 }

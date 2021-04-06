@@ -13,6 +13,7 @@ public class EnviarBD : MonoBehaviour
     public InputField inputFieldActivity;
     public InputField inputFieldstudent;
 
+    public static bool infoEnviada = false;
     
 
     //public GameObject uno, dos, tres, cuatro;
@@ -20,12 +21,6 @@ public class EnviarBD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-       
-
-        
-
-
         aviso_Text.SetActive(false);        
     }
 
@@ -77,10 +72,16 @@ public class EnviarBD : MonoBehaviour
         {
             yield return www.Send();
             Debug.Log(www.downloadHandler.text);
-            panelMenu.SetActive(true);
-            panelOpc.SetActive(false);
+            RegrePanel();
             StartCoroutine(OffAviso());
+            infoEnviada = true;
         }
+    }
+
+    public void RegrePanel()
+    {
+        panelMenu.SetActive(true);
+        panelOpc.SetActive(false);
     }
 
     IEnumerator OffAviso()

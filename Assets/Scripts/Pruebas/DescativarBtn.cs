@@ -15,8 +15,12 @@ public class DescativarBtn : MonoBehaviour
 
     public void desactBtn()
     {
-
+        if (EnviarBD.infoEnviada == true)
+        {
+            
+        }
         Button.SetActive(false);
+
     }
 
     // Update is called once per frame
