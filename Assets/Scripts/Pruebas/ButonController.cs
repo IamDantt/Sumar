@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ButonController : MonoBehaviour
 {
     public Button[] Botones;
+    public GameObject Guia;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +15,7 @@ public class ButonController : MonoBehaviour
 
     public void ActiveButon()
     {
+        Guia.SetActive(false);
         for (int i = 0; i < Botones.Length; i++)
         {
             Botones[i].interactable = true;
@@ -22,6 +24,7 @@ public class ButonController : MonoBehaviour
     }
     public void DesctiveButon()
     {
+        Guia.SetActive(true);
         for (int i = 0; i < Botones.Length; i++)
         {
             Botones[i].interactable = false;

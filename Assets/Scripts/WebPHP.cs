@@ -61,7 +61,7 @@ public class WebPHP : MonoBehaviour
         form.AddField("code_estudiante", studentcode);
         form.AddField("code_actividad", activitycode);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityTesis/pedir_datos.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/pedir_datos.php", form))
         {
             yield return www.SendWebRequest();
 
@@ -87,7 +87,7 @@ public class WebPHP : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("code_actividad", activitycode);
 
-        using (UnityWebRequest request = UnityWebRequest.Post("http://localhost/UnityTesis/pedir_datos.php", form))
+        using (UnityWebRequest request = UnityWebRequest.Post("https://campus.eduriot.com/php/pedir_datos.php", form))
         {
             yield return request.SendWebRequest();
 

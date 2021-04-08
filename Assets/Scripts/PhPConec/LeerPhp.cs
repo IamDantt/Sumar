@@ -23,7 +23,7 @@ public class LeerPhp : MonoBehaviour
 	public InputField inputFieldstudent;
 
 
-	public GameObject panel2, panelMenu, panel, panel0;
+	public GameObject panel2, panelMenu, panel, panel0, aviso;
 	public Text pregunta, opc0, opc1, opc2, opc3, NameUser;
 
 	public Button Btn_Enviar;
@@ -48,8 +48,8 @@ public class LeerPhp : MonoBehaviour
 
 	void Start()
 	{
-		
 
+		aviso.SetActive(false);
 		
 
 		panel2.SetActive(true);
@@ -65,6 +65,7 @@ public class LeerPhp : MonoBehaviour
 		{
 			
 			StartCoroutine(login(inputFieldstudent.text, inputFieldActivity.text));
+			StartCoroutine(GetName(inputFieldstudent.text, inputFieldActivity.text));
 
 
 		}
@@ -85,7 +86,7 @@ public class LeerPhp : MonoBehaviour
 		form.AddField("code_estudiante", studentcode);
 		form.AddField("code_actividad", activitycode);
 
-		using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityTesis/pedir_datos.php", form))
+		using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/pedir_datos.php", form))
 		{
 			yield return www.SendWebRequest();
 
@@ -97,8 +98,34 @@ public class LeerPhp : MonoBehaviour
 			}
 			else
 			{
+				Debug.Log(www.downloadHandler.text);
+				//NameUser.text = studentcode.ToString();
 
-				NameUser.text = studentcode.ToString();
+			}
+
+		}
+	}
+
+	IEnumerator GetName(string studentcode, string activitycode)
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("code_estudiante", studentcode);
+		form.AddField("code_actividad", activitycode);
+
+		using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/GetName.php", form))
+		{
+			yield return www.SendWebRequest();
+
+			if (www.isNetworkError || www.isHttpError)
+			{
+
+				Debug.Log(www.error);
+				Debug.Log("Error Login");
+			}
+			else
+			{
+				
+				NameUser.text = www.downloadHandler.text.ToString();
 
 			}
 
@@ -114,7 +141,7 @@ public class LeerPhp : MonoBehaviour
 
 
 
-		string url = "http://localhost/UnityTesis/pedir_datos.php";
+		string url = "https://campus.eduriot.com/php/pedir_datos.php";
 
 		UnityWebRequest request = UnityWebRequest.Post(url, form);
 		request.chunkedTransfer = false;
@@ -122,15 +149,17 @@ public class LeerPhp : MonoBehaviour
 
 		if (request.isNetworkError)
 		{
-			//show message "no internet "
+			StartCoroutine(CloseAviso());
+			info.text = "Error de coneccion";
 		}
 		else
 		{
 			if (request.isDone)
 			{
-				
-					allAtivity = JsonHelper.GetArray<Activity>(request.downloadHandler.text);
-					Debug.Log(request.downloadHandler.text);
+				Debug.Log(request.downloadHandler.text);
+				allAtivity = JsonHelper.GetArray<Activity>(request.downloadHandler.text);
+					
+				StartCoroutine(CloseAviso());
 					info.text = request.downloadHandler.text.ToString();
 					DrawUI();
 				panel2.SetActive(false);
@@ -140,6 +169,13 @@ public class LeerPhp : MonoBehaviour
 
 			}
 		}
+	}
+
+	IEnumerator CloseAviso()
+    {
+		aviso.SetActive(true);
+		yield return new WaitForSeconds(2);
+		aviso.SetActive(false);
 	}
 
 

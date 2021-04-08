@@ -68,7 +68,7 @@ public class EnviarBD : MonoBehaviour
         form.AddField("addActividad", id_actividad);
         form.AddField("addRespuesta", respuesta);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/UnityTesis/EnviarDatosBD.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/EnviarDatosBD.php", form))
         {
             yield return www.Send();
             Debug.Log(www.downloadHandler.text);
