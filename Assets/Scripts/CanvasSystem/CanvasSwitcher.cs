@@ -19,6 +19,6 @@ public class CanvasSwitcher : MonoBehaviour
     void OnButtonClicked()
     {
         canvasManager.SwitchCanvas(desiredCanvasType);
-        SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Buttons);
+        SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
     }
 }

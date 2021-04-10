@@ -5,7 +5,7 @@ using UnityEngine;
 public class SfxManager : MonoBehaviour
 {
    public AudioSource Audio;
-    public AudioClip Play, Confirm, Arrows, Card, DeslizarCarta, Buttons, Warning,Back, Menu, Info, Perfil, Drag, Error, Touch, Win;
+    public AudioClip Confirm, Alert;
 
     public static SfxManager sfxInstance;
 

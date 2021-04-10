@@ -40,7 +40,8 @@ public class WebPHP : MonoBehaviour
             // StartCoroutine(GetRequest("http://localhost/UnityTesis/carga.php"));
             // StartCoroutine(GetRequest("https://error.html"));
             StartCoroutine(login(inputFieldstudent.text,inputFieldActivity.text));
-            
+            SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
+
 
         }  
           if(!string.IsNullOrEmpty(inputFieldActivity.text))

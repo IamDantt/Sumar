@@ -27,10 +27,12 @@ public class PanelLeftController : MonoBehaviour
     public void Ocultar_Panel()
     {
         panel_Anim.Play("MenuLeftClose");
+        SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
     }
     public void Mostrar_Panel()
     {
         panel_Anim.Play("MenuLeftOpen");
+        SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
     }
 
     public void QuitApp()
@@ -41,6 +43,7 @@ public class PanelLeftController : MonoBehaviour
     public void ReloadScene(int val)
     {
         SceneManager.LoadScene(val);
+        SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
     }
 
     

@@ -66,6 +66,7 @@ public class LeerPhp : MonoBehaviour
 			
 			StartCoroutine(login(inputFieldstudent.text, inputFieldActivity.text));
 			StartCoroutine(GetName(inputFieldstudent.text, inputFieldActivity.text));
+			Btn_Enviar.interactable = false;
 
 
 		}
@@ -92,9 +93,9 @@ public class LeerPhp : MonoBehaviour
 
 			if (www.isNetworkError || www.isHttpError)
 			{
-				
+				SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Alert);
 				Debug.Log(www.error);
-				Debug.Log("Error Login");
+				info.text = "Error de acceso";
 			}
 			else
 			{
@@ -118,9 +119,9 @@ public class LeerPhp : MonoBehaviour
 
 			if (www.isNetworkError || www.isHttpError)
 			{
-
+				SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Alert);
 				Debug.Log(www.error);
-				Debug.Log("Error Login");
+				info.text = "Error de al obtener nombre de usuario";
 			}
 			else
 			{
@@ -151,12 +152,14 @@ public class LeerPhp : MonoBehaviour
 		{
 			StartCoroutine(CloseAviso());
 			info.text = "Error de coneccion";
+			SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Alert);
 		}
 		else
 		{
 			if (request.isDone)
 			{
-				Debug.Log(request.downloadHandler.text);
+				
+				//Debug.Log(request.downloadHandler.text);
 				allAtivity = JsonHelper.GetArray<Activity>(request.downloadHandler.text);
 					
 				StartCoroutine(CloseAviso());
@@ -173,7 +176,9 @@ public class LeerPhp : MonoBehaviour
 
 	IEnumerator CloseAviso()
     {
+
 		aviso.SetActive(true);
+		SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Alert);
 		yield return new WaitForSeconds(2);
 		aviso.SetActive(false);
 	}

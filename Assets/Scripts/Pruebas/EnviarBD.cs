@@ -82,6 +82,7 @@ public class EnviarBD : MonoBehaviour
     {
         panelMenu.SetActive(true);
         panelOpc.SetActive(false);
+        SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
     }
 
     IEnumerator OffAviso()
