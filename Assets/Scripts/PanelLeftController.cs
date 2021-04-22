@@ -9,10 +9,11 @@ public class PanelLeftController : MonoBehaviour
     
     public Animator panel_Anim;
     public Text VerApp;
-
+    public GameObject PanelAprender;
     // Start is called before the first frame update
     void Start()
     {
+        PanelAprender.SetActive(false);
         panel_Anim = GetComponent<Animator>();
 
         VerApp.text = "V" +" "+ Application.version.ToString();
@@ -22,6 +23,15 @@ public class PanelLeftController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AprenderOn()
+    {
+        PanelAprender.SetActive(true);
+    }
+    public void AprenderOff()
+    {
+        PanelAprender.SetActive(false);
     }
 
     public void Ocultar_Panel()
