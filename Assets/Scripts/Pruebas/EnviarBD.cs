@@ -29,6 +29,8 @@ public class EnviarBD : MonoBehaviour
     {
         ObtenerTexto variable = GetComponent<ObtenerTexto>();
         Respuesta = variable.Respuesta_E;
+        id_Pregunta = variable.id_pregunta;
+
     }
 
     /*public void obtenerTexto1()

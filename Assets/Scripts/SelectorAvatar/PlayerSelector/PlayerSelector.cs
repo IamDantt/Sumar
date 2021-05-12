@@ -74,7 +74,7 @@ public class PlayerSelector : MonoBehaviour
         verificar();
 
 
-        SeInstancio = 1;
+        SeInstancio = AvatarSelect;
         PlayerPrefs.SetInt("instanciado", SeInstancio);
 
         PlayerPrefs.SetInt("Avatar", AvatarSelect);
@@ -87,17 +87,30 @@ public class PlayerSelector : MonoBehaviour
         if (AvatarSelect == 0)
         {
             prefabs[0].SetActive(true);
+            prefabs[1].SetActive(false);
+            prefabs[2].SetActive(false);
+            prefabs[3].SetActive(false);
         }
         if (AvatarSelect == 1)
         {
+            prefabs[0].SetActive(false);
             prefabs[1].SetActive(true);
+            prefabs[2].SetActive(false);
+            prefabs[3].SetActive(false);
         }
         if (AvatarSelect == 2)
         {
+            prefabs[0].SetActive(false);
+            prefabs[1].SetActive(false);
             prefabs[2].SetActive(true);
+            prefabs[3].SetActive(false);
+
         }
         if (AvatarSelect == 3)
-        {
+        {           
+            prefabs[0].SetActive(false);
+            prefabs[1].SetActive(false);
+            prefabs[2].SetActive(false);
             prefabs[3].SetActive(true);
         }
     }

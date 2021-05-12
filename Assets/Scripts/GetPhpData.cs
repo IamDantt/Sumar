@@ -1,39 +1,39 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
-public static class ButtonExtension
+/*public static class ButtonExtension
 {
-	public static void AddEventListener<T>(this Button button, T param, Action<T> OnClick)
-    {
-        button.onClick.AddListener(delegate(){
+	public static void AddEventlistener<T>(this Button button, T param, Action<T> OnClick)
+	{
+		button.onClick.AddListener(delegate () {
 			OnClick(param);
-        });
-    }
-}
+		});
+	}
+}*/
 
-
-public class LeerPhp : MonoBehaviour
+public class GetPhpData : MonoBehaviour
 {
 
-	public InputField inputFieldActivity;
+	
 	public InputField inputFieldstudent;
 
 
-	public GameObject panel2, panelMenu, panel, panel0, aviso;
-	public Text pregunta, opc0, opc1, opc2, opc3, NameUser, ID_Pregunta;
+	//public GameObject panel2, panelMenu, panel, panel0, aviso;
+	//public Text pregunta, opc0, opc1, opc2, opc3, NameUser, ID_Pregunta;
 
 	public Button Btn_Enviar;
 
 	[SerializeField] Text info;
 
-	public string Respuesta;
-	
+	//public string Respuesta;
 
-	[System.Serializable]
+
+	/* [System.Serializable]
 	public struct Activity
 	{
 		public string id_pregunta;
@@ -41,54 +41,50 @@ public class LeerPhp : MonoBehaviour
 		public string tipo_pregunta;
 		public string respuesta;
 		public string opciones;
-	}
+	} 
 
 	public string[] _DivOpciones;
 
 	public Activity[] allAtivity;
 
+	*/
+
 	void Start()
 	{
 
-		aviso.SetActive(false);
-		
+		/*aviso.SetActive(false);
+
 
 		panel2.SetActive(true);
 		panel.SetActive(true);
 		panel0.SetActive(true);
-
+		*/
 	}
 
 
 	public void Entrar()
 	{
-		if (!string.IsNullOrEmpty(inputFieldstudent.text) && !string.IsNullOrEmpty(inputFieldActivity.text))
+		if (!string.IsNullOrEmpty(inputFieldstudent.text))
 		{
-			
-			StartCoroutine(login(inputFieldstudent.text, inputFieldActivity.text));
-			StartCoroutine(GetName(inputFieldstudent.text, inputFieldActivity.text));
+
+			StartCoroutine(login(inputFieldstudent.text));
+			StartCoroutine(GetName(inputFieldstudent.text));
 			Btn_Enviar.interactable = false;
 
-
-		}
-		if (!string.IsNullOrEmpty(inputFieldActivity.text))
-		{
-			StartCoroutine(GetActivity(inputFieldActivity.text , inputFieldstudent.text));
 
 		}
 	}
 	public void verifyInputs()
 	{
-		Btn_Enviar.interactable = (inputFieldstudent.text.Length >= 5 && inputFieldActivity.text.Length >= 3);
+		Btn_Enviar.interactable = (inputFieldstudent.text.Length >= 5);
 	}
 
-	IEnumerator login(string studentcode, string activitycode)
+	IEnumerator login(string studentcode)
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("code_estudiante", studentcode);
-		form.AddField("code_actividad", activitycode);
 
-		using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/pedir_datos.php", form))
+		using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/enviar_actividades.php", form))
 		{
 			yield return www.SendWebRequest();
 
@@ -108,11 +104,10 @@ public class LeerPhp : MonoBehaviour
 		}
 	}
 
-	IEnumerator GetName(string studentcode, string activitycode)
+	IEnumerator GetName(string studentcode)
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("code_estudiante", studentcode);
-		form.AddField("code_actividad", activitycode);
 
 		using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/GetName.php", form))
 		{
@@ -126,15 +121,15 @@ public class LeerPhp : MonoBehaviour
 			}
 			else
 			{
-				
-				NameUser.text = www.downloadHandler.text.ToString();
+
+				//NameUser.text = www.downloadHandler.text.ToString();
 
 			}
 
 		}
 	}
 
-	IEnumerator GetActivity(string activitycode, string studentcode)
+	/*IEnumerator GetActivity(string activitycode, string studentcode)
 	{
 
 		WWWForm form = new WWWForm();
@@ -159,13 +154,13 @@ public class LeerPhp : MonoBehaviour
 		{
 			if (request.isDone)
 			{
-				
+
 				//Debug.Log(request.downloadHandler.text);
 				allAtivity = JsonHelper.GetArray<Activity>(request.downloadHandler.text);
-					
+
 				StartCoroutine(CloseAviso());
-					info.text = request.downloadHandler.text.ToString();
-					DrawUI();
+				info.text = request.downloadHandler.text.ToString();
+				DrawUI();
 				panel2.SetActive(false);
 				panelMenu.SetActive(true);
 				panel0.SetActive(false);
@@ -173,19 +168,19 @@ public class LeerPhp : MonoBehaviour
 
 			}
 		}
-	}
+	}*/
 
-	IEnumerator CloseAviso()
-    {
+	/*IEnumerator CloseAviso()
+	{
 
 		aviso.SetActive(true);
 		SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Alert);
 		yield return new WaitForSeconds(2);
 		aviso.SetActive(false);
-	}
+	}*/
 
 
-	void DrawUI()
+	/*void DrawUI()
 	{
 		GameObject buttonTemplate = transform.GetChild(0).gameObject;
 		GameObject g;
@@ -198,47 +193,38 @@ public class LeerPhp : MonoBehaviour
 
 			g.transform.GetChild(1).GetComponent<Text>().text = allAtivity[i].pregunta;
 			g.transform.GetChild(2).GetComponent<Text>().text = allAtivity[i].id_pregunta;
-
-			g.GetComponent<Button>().AddEventListener(i, ItemClicked);
+			
+			//g.GetComponent<Button>().AddEventListener(i, ItemClicked);
 
 		}
 
 		Destroy(buttonTemplate);
-	}
+	}*/
 
+	/*
 	void ItemClicked(int intemIndex)
 	{
-		
 
-		panel2.SetActive(true);
-		//panelMenu.SetActive(false);
 
-		
-		ID_Pregunta.text = allAtivity[intemIndex].id_pregunta.ToString();
-		pregunta.text = allAtivity[intemIndex].pregunta.ToString();
+		//panel2.SetActive(true);
+
+
+		//ID_Pregunta.text = allAtivity[intemIndex].id_pregunta.ToString();
+		//pregunta.text = allAtivity[intemIndex].pregunta.ToString();
 		_DivOpciones = allAtivity[intemIndex].opciones.Split('-');
-		/*_DivOpciones = allAtivity[intemIndex].opciones.Split(' ');
-		_DivOpciones = allAtivity[intemIndex].opciones.Split(',');
-		_DivOpciones = allAtivity[intemIndex].opciones.Split('.');*/
 
 
 		for (int i = 0; i < _DivOpciones.Length; i++)
-        {
-			opc0.text = _DivOpciones[0].ToString();			
+		{
+			opc0.text = _DivOpciones[0].ToString();
 			opc1.text = _DivOpciones[1].ToString();
 			opc2.text = _DivOpciones[2].ToString();
 			opc3.text = _DivOpciones[3].ToString();
 
 
-		}
-		
+		} */
+
 
 
 	}
 
-	public void GetUserName()
-    {
-
-    }
-	
-}
