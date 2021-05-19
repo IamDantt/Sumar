@@ -32,33 +32,43 @@ public class GetPhpData : MonoBehaviour
 
 	//public string Respuesta;
 
-
-	/* [System.Serializable]
-	public struct Activity
+	[System.Serializable]
+	public class jsonData
 	{
-		public string id_pregunta;
-		public string pregunta;
-		public string tipo_pregunta;
-		public string respuesta;
-		public string opciones;
-	} 
+		public string id_persona;
+		public string puntuacion;
+		public List<ActividadesList> actividades;
 
-	public string[] _DivOpciones;
+	}
 
-	public Activity[] allAtivity;
+	[System.Serializable]
+	public class ActividadesList
+	{
+		public string nombre;
+		public string disponible;
+		public string calificacion;
+		public List<string> preguntas;
+		public List<string> respuestas;
+	}
 
-	*/
+
+	//public string[] _DivOpciones;
+	[System.Serializable]
+	public class AllActivitys
+    {
+		public jsonData[] Id;
+		public ActividadesList[] Ativity;
+	}
+
+	public ActividadesList[] allAtivity;
+
+	public AllActivitys MyId = new AllActivitys();
+
+
 
 	void Start()
 	{
 
-		/*aviso.SetActive(false);
-
-
-		panel2.SetActive(true);
-		panel.SetActive(true);
-		panel0.SetActive(true);
-		*/
 	}
 
 
@@ -68,7 +78,6 @@ public class GetPhpData : MonoBehaviour
 		{
 
 			StartCoroutine(login(inputFieldstudent.text));
-			StartCoroutine(GetName(inputFieldstudent.text));
 			Btn_Enviar.interactable = false;
 
 
@@ -96,7 +105,19 @@ public class GetPhpData : MonoBehaviour
 			}
 			else
 			{
+				jsonData jsnData = JsonUtility.FromJson<jsonData>("https://campus.eduriot.com/php/enviar_actividades.php");
+
 				Debug.Log(www.downloadHandler.text);
+
+				foreach (ActividadesList x in jsnData.actividades)
+				{
+
+					Debug.Log("Nombre Actividad " + x.nombre);
+					Debug.Log("Disponibilidad " + x.disponible);
+					Debug.Log("Calificación " + x.calificacion);
+
+				}
+				//DrawUI();
 				//NameUser.text = studentcode.ToString();
 
 			}
@@ -104,83 +125,8 @@ public class GetPhpData : MonoBehaviour
 		}
 	}
 
-	IEnumerator GetName(string studentcode)
-	{
-		WWWForm form = new WWWForm();
-		form.AddField("code_estudiante", studentcode);
 
-		using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/GetName.php", form))
-		{
-			yield return www.SendWebRequest();
-
-			if (www.isNetworkError || www.isHttpError)
-			{
-				SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Alert);
-				Debug.Log(www.error);
-				info.text = "Error de al obtener nombre de usuario";
-			}
-			else
-			{
-
-				//NameUser.text = www.downloadHandler.text.ToString();
-
-			}
-
-		}
-	}
-
-	/*IEnumerator GetActivity(string activitycode, string studentcode)
-	{
-
-		WWWForm form = new WWWForm();
-		form.AddField("code_actividad", activitycode);
-		form.AddField("code_estudiante", studentcode);
-
-
-
-		string url = "https://campus.eduriot.com/php/pedir_datos.php";
-
-		UnityWebRequest request = UnityWebRequest.Post(url, form);
-		request.chunkedTransfer = false;
-		yield return request.SendWebRequest();
-
-		if (request.isNetworkError)
-		{
-			StartCoroutine(CloseAviso());
-			info.text = "Error de coneccion";
-			SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Alert);
-		}
-		else
-		{
-			if (request.isDone)
-			{
-
-				//Debug.Log(request.downloadHandler.text);
-				allAtivity = JsonHelper.GetArray<Activity>(request.downloadHandler.text);
-
-				StartCoroutine(CloseAviso());
-				info.text = request.downloadHandler.text.ToString();
-				DrawUI();
-				panel2.SetActive(false);
-				panelMenu.SetActive(true);
-				panel0.SetActive(false);
-
-
-			}
-		}
-	}*/
-
-	/*IEnumerator CloseAviso()
-	{
-
-		aviso.SetActive(true);
-		SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Alert);
-		yield return new WaitForSeconds(2);
-		aviso.SetActive(false);
-	}*/
-
-
-	/*void DrawUI()
+	void DrawUI()
 	{
 		GameObject buttonTemplate = transform.GetChild(0).gameObject;
 		GameObject g;
@@ -191,15 +137,15 @@ public class GetPhpData : MonoBehaviour
 		{
 			g = Instantiate(buttonTemplate, transform);
 
-			g.transform.GetChild(1).GetComponent<Text>().text = allAtivity[i].pregunta;
-			g.transform.GetChild(2).GetComponent<Text>().text = allAtivity[i].id_pregunta;
+			g.transform.GetChild(1).GetComponent<Text>().text = allAtivity[i].nombre;
+			//g.transform.GetChild(2).GetComponent<Text>().text = allAtivity[i].id_pregunta;
 			
 			//g.GetComponent<Button>().AddEventListener(i, ItemClicked);
 
 		}
 
 		Destroy(buttonTemplate);
-	}*/
+	} 
 
 	/*
 	void ItemClicked(int intemIndex)
