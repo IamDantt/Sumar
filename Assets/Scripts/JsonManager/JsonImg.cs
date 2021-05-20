@@ -10,7 +10,7 @@ public class JsonImg : MonoBehaviour
 
     public InputField inputFieldstudent;
 
-    //public Image image;
+    public Image image;
 
     //public int cantVar;
 
@@ -56,91 +56,72 @@ public class JsonImg : MonoBehaviour
             else
             {
 
-                //StartCoroutine(getTmg(www.downloadHandler.text));
-                getTmg(www.downloadHandler.text);
+                StartCoroutine(getTmg(www.downloadHandler.text));
             }
         }
 
     }
 
-    private void getTmg(string _url)
-    {
-        GameObject buttonTemplate = transform.GetChild(0).gameObject;
-        GameObject g;
+    
+
+     IEnumerator getTmg(string _url)
+     {
 
         jsonData jsnData = JsonUtility.FromJson<jsonData>(_url);
 
-        foreach (ActividadesList x in jsnData.actividades)
-        {
-
-            g = Instantiate(buttonTemplate, transform);
-
-            for (int i = 0; i < x.nombre.Length; i++)
-            {
-                for (int j = 0; j < x.img.Count; j++)
-                {
-                    //Debug.Log("URL" + x.img[j]);
-                    UnityWebRequest req = UnityWebRequestTexture.GetTexture(x.img[j]);
-                    return;
-
-                    // Texture2D img = ((DownloadHandlerTexture)req.downloadHandler).texture;
-                    // image.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), Vector2.zero);
-
-                    //g.transform.GetChild(0).GetComponent<Image>().sprite = image.sprite;
-                    g.transform.GetChild(0).GetComponent<Text>().text = x.img[i];
-
-
-                }
-                //Debug.Log("URL" + x.img[i]);
-            }
-
-
-
-
-
-        }
-        Destroy(buttonTemplate);
-
-    }
-    /*IEnumerator getTmg(string _url)
-    {
         GameObject buttonTemplate = transform.GetChild(0).gameObject;
-        GameObject g;
-
-        jsonData jsnData = JsonUtility.FromJson<jsonData>(_url);
-                    
-        foreach (ActividadesList x in jsnData.actividades)
-        {
-            
-            g = Instantiate(buttonTemplate, transform);
-
-            for (int i = 0; i < x.nombre.Length; i++)
-            {
-                for (int j = 0; j < x.img.Count; j++)
-                {
-                    //Debug.Log("URL" + x.img[j]);
-                    UnityWebRequest req = UnityWebRequestTexture.GetTexture(x.img[j]);
-                    yield return req.SendWebRequest();
-
-                    // Texture2D img = ((DownloadHandlerTexture)req.downloadHandler).texture;
-                    // image.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), Vector2.zero);
-
-                    //g.transform.GetChild(0).GetComponent<Image>().sprite = image.sprite;
-                    g.transform.GetChild(0).GetComponent<Text>().text = x.img[i];
+         GameObject g;
 
 
-                }
-                //Debug.Log("URL" + x.img[i]);
-            }
-            
-
-
-
-
-        }
-        Destroy(buttonTemplate);
+        //Debug.Log(_url);
         
-    }*/
+        foreach (ActividadesList x in jsnData.actividades)
+        {
+             Debug.Log("Nombre " + x.nombre);
+           
+
+
+            for (int i = 0; i < x.img.Count; i++)
+            {
+                Debug.Log("url" + x.img.Count);
+                g = Instantiate(buttonTemplate, transform);
+                //for (int j = 0; j < x.img.Count; j++)
+                //{
+
+
+                // GameObject InObject = new GameObject();
+                // Image image = InObject.AddComponent<Image>();
+
+
+                
+                     
+                     UnityWebRequest req = UnityWebRequestTexture.GetTexture(x.img[i]);                    
+                     yield return req.SendWebRequest();
+
+                     if (req.isNetworkError || req.isHttpError)
+                     {
+                         Debug.Log(req.error);
+                     }
+                     else
+                     {
+                         Texture2D img = ((DownloadHandlerTexture)req.downloadHandler).texture;
+                         image.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), Vector2.zero);
+                         g.transform.GetChild(0).GetComponent<Image>().sprite = image.sprite;
+                     }
+
+
+
+                // }
+
+                //Debug.Log("URL" + x.img[i]);
+                
+            }
+            
+
+        }
+
+        Destroy(buttonTemplate);
+    } 
 
 
 }
