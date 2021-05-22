@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.EventSystems;
+
 
 public class jsonController : MonoBehaviour
 {
     //public string jsonURL;
 
-    public Text nombre, pregunta, idper, puntuacin, calificacion, dispo;
+    public Text nombre, idper, puntuacin /*TextoPregunta ,pregunta, calificacion, dispo*/;
 
     public InputField inputFieldstudent;
 
+    [Header("Paneles")]
+    public GameObject Login; public GameObject Menu; public GameObject Pregunta;
     //public Dropdown myDropdown;
+    [Header("Menu botones")]
+    public GameObject Btn_Volver; public GameObject Btn_Menu;
+    public Color MyGreenColor, MyRedColor;
 
     //public Image image;
 
@@ -60,44 +67,14 @@ public class jsonController : MonoBehaviour
             else
             {
                 processJsonData(www.downloadHandler.text);
-                //StartCoroutine(getTmg(www.downloadHandler.text));
+                Login.SetActive(false);
+                Menu.SetActive(true);
                 
             }
         }
         
     }
 
-    /*IEnumerator getTmg(string _url)
-    {
-        Debug.Log(" esta es mi url " + _url);
-
-        jsonData jsnData = JsonUtility.FromJson<jsonData>(_url);
-
-        
-
-        //WWW wwwLoader = new WWW(_url);
-        
-
-        foreach (ActividadesList x in jsnData.actividades)
-        {
-
-            for (int i = 0; i < x.img.Count; i++)
-            {
-                Debug.Log("URL" + x.img[i]);
-                UnityWebRequest req = UnityWebRequestTexture.GetTexture(x.img[i]);
-                yield return req.SendWebRequest();
-
-                Texture2D img = ((DownloadHandlerTexture)req.downloadHandler).texture;
-                image.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height),Vector2.zero);
-
-                //image.material.color = Color.white;
-                //image.material.mainTexture = wwwLoader.texture;
-
-            }
-
-            
-        }
-    }*/
 
     private void processJsonData(string _url)
     {
@@ -107,74 +84,60 @@ public class jsonController : MonoBehaviour
        
         jsonData jsnData = JsonUtility.FromJson<jsonData>(_url);
 
-
-       
-        //myDropdown.options.Clear();
         idper.text = jsnData.id_persona.ToString();
         puntuacin.text =  jsnData.puntuacion.ToString();
 
-        
-       
-        //Debug.Log("-------------------------------------");
         foreach (ActividadesList x in jsnData.actividades)
         {
            
-
-            //Debug.Log("nombre actividad " + x.nombre);
-
-
-            //cantVar = x.nombre.Length;
-           // Debug.Log("Cantidad e nombres son: " + x.nombre.Length);
             g = Instantiate(buttonTemplate, transform);
-            g.transform.GetChild(0).GetComponent<Text>().text = x.nombre;
+            g.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = x.nombre;
+
+            
             //g.transform.GetChild(4).GetComponent<Text>().text = "8D";
 
             switch (x.disponible)
             {
                 case "1":
-                    g.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = Color.green;
+                    g.transform.GetChild(0).GetComponent<Image>().color = MyGreenColor;
                     break;
                 case "0":
-                    g.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = Color.red;
+                    g.transform.GetChild(0).GetComponent<Image>().color = MyRedColor;
                     break;
  
             }
-
+            
             for (int d = 0; d < x.nombre.Length; d++)
             {
                 
-                //Debug.Log("nombre actividad " + x.nombre);
-                
-
-
-                //Debug.Log("------------------preguntas-------------------");
                 for (int j = 0; j < x.preguntas.Count; j++)
                 {
-                    //myDropdown.options.Add(new Dropdown.OptionData(x.preguntas[j]));
+                   
                     var lol = j + 1;
-                   // Debug.Log(x.preguntas[j]);
 
-                    // pregunta.text = x.preguntas[j].ToString();
                     switch (x.respuestas[j])
                     {
                         case "1":
-                            g.transform.GetChild(j+1).GetChild(0).GetComponent<Image>().color = Color.green;
+                            g.transform.GetChild(j+1).GetChild(0).GetComponent<Image>().color = MyGreenColor;
                             break;
                         case "0":
-                            g.transform.GetChild(j+1).GetChild(0).GetComponent<Image>().color = Color.red;
+                            g.transform.GetChild(j+1).GetChild(0).GetComponent<Image>().color = MyRedColor;
                             break;
 
                     }
+
                     g.transform.GetChild(j + 1).GetComponent<Text>().text = x.preguntas[j];
 
+                    
+                    //TextoPregunta.text = x.preguntas[j];
+                    //g.GetComponent<Button>().onClick.AddEventListener(ItemClicked);
+
+
                 }
-                //Debug.Log("------------------respuestas-------------------");
                 for (int i = 0; i < x.respuestas.Count; i++)
                 {
                     var lol2 = i + 1;
-                    //Debug.Log(x.respuestas[i]);
                 }
-                //Debug.Log("-------------------------------------");
 
               
 
@@ -186,6 +149,24 @@ public class jsonController : MonoBehaviour
         }
         Destroy(buttonTemplate);
     }
-
     
+    public void ItemClicked()
+    {
+
+        Debug.Log("el nombre es" + EventSystem.current.currentSelectedGameObject.name);
+
+        //Debug.Log("Presionado");
+
+        Pregunta.SetActive(true);
+        Menu.SetActive(false);
+        Btn_Menu.SetActive(false);
+        Btn_Volver.SetActive(true);
+    }
+
+    public void Volver()
+    {
+        Menu.SetActive(true);
+        Btn_Menu.SetActive(true);
+        Btn_Volver.SetActive(false);
+    }
 }

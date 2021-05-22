@@ -19,7 +19,7 @@ public class JsonImg : MonoBehaviour
     void Start()
     {
 
-        Entrar();
+        //Entrar();
     }
 
     public void Entrar()
