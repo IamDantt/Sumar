@@ -47,6 +47,12 @@ TextureImporter:
   - first:
       213: 6660256375238555176
     second: UI 8 bit_14
+  - first:
+      213: 7192192001206647575
+    second: UI 8 bit_15
+  - first:
+      213: 8620330405389213908
+    second: UI 8 bit_16
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -147,8 +153,8 @@ TextureImporter:
       name: UI 8 bit_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 2525
+        x: 22
+        y: 2621
         width: 997
         height: 844
       alignment: 0
@@ -168,12 +174,12 @@ TextureImporter:
       name: Icono
       rect:
         serializedVersion: 2
-        x: 64
-        y: 3642
+        x: 61
+        y: 3762
         width: 283
         height: 311
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -189,12 +195,12 @@ TextureImporter:
       name: Titulo
       rect:
         serializedVersion: 2
-        x: 75
-        y: 3405
+        x: 92
+        y: 3508
         width: 628
         height: 215
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -210,12 +216,12 @@ TextureImporter:
       name: UI 8 bit_3
       rect:
         serializedVersion: 2
-        x: 787
-        y: 3413
+        x: 820
+        y: 3529
         width: 588
         height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -231,12 +237,12 @@ TextureImporter:
       name: UI 8 bit_4
       rect:
         serializedVersion: 2
-        x: 1386
-        y: 3412
+        x: 1426
+        y: 3525
         width: 588
         height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -252,12 +258,12 @@ TextureImporter:
       name: UI 8 bit_5
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 2566
+        x: 1065
+        y: 2656
         width: 953
         height: 704
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -273,12 +279,12 @@ TextureImporter:
       name: UI 8 bit_6
       rect:
         serializedVersion: 2
-        x: 10
-        y: 621
+        x: 23
+        y: 687
         width: 943
         height: 1890
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -294,12 +300,12 @@ TextureImporter:
       name: UI 8 bit_7
       rect:
         serializedVersion: 2
-        x: 1025
-        y: 623
+        x: 1060
+        y: 686
         width: 943
         height: 1890
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -315,12 +321,12 @@ TextureImporter:
       name: UI 8 bit_8
       rect:
         serializedVersion: 2
-        x: 1109
-        y: 479
+        x: 1137
+        y: 517
         width: 383
         height: 126
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -336,12 +342,12 @@ TextureImporter:
       name: UI 8 bit_9
       rect:
         serializedVersion: 2
-        x: 13
-        y: 69
+        x: 22
+        y: 105
         width: 1071
         height: 522
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -357,12 +363,12 @@ TextureImporter:
       name: UI 8 bit_10
       rect:
         serializedVersion: 2
-        x: 1151
-        y: 23
+        x: 1189
+        y: 54
         width: 796
         height: 155
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -378,12 +384,12 @@ TextureImporter:
       name: UI 8 bit_11
       rect:
         serializedVersion: 2
-        x: 1631
-        y: 432
+        x: 1669
+        y: 467
         width: 169
         height: 169
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -399,12 +405,12 @@ TextureImporter:
       name: UI 8 bit_12
       rect:
         serializedVersion: 2
-        x: 1821
-        y: 432
+        x: 1868
+        y: 465
         width: 169
         height: 169
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -420,12 +426,12 @@ TextureImporter:
       name: UI 8 bit_13
       rect:
         serializedVersion: 2
-        x: 1824
-        y: 230
+        x: 1864
+        y: 263
         width: 169
         height: 169
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -441,12 +447,12 @@ TextureImporter:
       name: UI 8 bit_14
       rect:
         serializedVersion: 2
-        x: 1608
-        y: 215
+        x: 1646
+        y: 250
         width: 188
         height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -454,6 +460,48 @@ TextureImporter:
       bones: []
       spriteID: 826ff1fb2ebfd6c50800000000000000
       internalID: 6660256375238555176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI 8 bit_15
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 2595
+        width: 993
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71bf35ce48ccfc360800000000000000
+      internalID: 7192192001206647575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI 8 bit_16
+      rect:
+        serializedVersion: 2
+        x: 1135
+        y: 391
+        width: 383
+        height: 126
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d029bbc4d091a770800000000000000
+      internalID: 8620330405389213908
       vertices: []
       indices: 
       edges: []

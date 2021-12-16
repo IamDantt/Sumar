@@ -10,7 +10,7 @@ public class EnviarBD : MonoBehaviour
     public string id_Pregunta;
     public GameObject panelMenu, panelOpc, aviso_Text;
 
-    public InputField inputFieldActivity;
+    //public InputField inputFieldActivity;
     public InputField inputFieldstudent;
 
     public static bool infoEnviada = false;
@@ -33,41 +33,19 @@ public class EnviarBD : MonoBehaviour
 
     }
 
-    /*public void obtenerTexto1()
-    {
-        Debug.Log(uno.GetComponentInChildren<Text>().text.ToString());
-        Respuesta = uno.GetComponentInChildren<Text>().text.ToString();
-
-    }
-    public void obtenerTexto2()
-    {
-        Debug.Log(dos.GetComponentInChildren<Text>().text.ToString());
-        Respuesta = dos.GetComponentInChildren<Text>().text.ToString();
-    }
-    public void obtenerTexto3()
-    {
-        Debug.Log(tres.GetComponentInChildren<Text>().text.ToString());
-        Respuesta = tres.GetComponentInChildren<Text>().text.ToString();
-    }
-    public void obtenerTexto4()
-    {
-        Debug.Log(cuatro.GetComponentInChildren<Text>().text.ToString());
-        Respuesta = cuatro.GetComponentInChildren<Text>().text.ToString();
-    } */
-
+    
     public void Enviaradb()
     {
-        StartCoroutine(EnviaralDB( id_Pregunta, inputFieldstudent.text, inputFieldActivity.text, Respuesta));
+        StartCoroutine(EnviaralDB( id_Pregunta, inputFieldstudent.text, Respuesta));
     }
 
 
-    IEnumerator EnviaralDB(string id_pregunta, string id_persona, string id_actividad, string respuesta)
+    IEnumerator EnviaralDB(string id_pregunta, string id_persona, string respuesta)
     {
 
         WWWForm form = new WWWForm();
         form.AddField("addPregunta", id_pregunta);
         form.AddField("addPersona", id_persona);
-        form.AddField("addActividad", id_actividad);
         form.AddField("addRespuesta", respuesta);
 
         using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/EnviarDatosBD.php", form))
@@ -84,7 +62,7 @@ public class EnviarBD : MonoBehaviour
     {
         panelMenu.SetActive(true);
         panelOpc.SetActive(false);
-        SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
+        //SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
     }
 
     IEnumerator OffAviso()

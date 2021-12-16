@@ -17,7 +17,7 @@ public class PreguntasJson : MonoBehaviour
     public GameObject Login; public GameObject Menu; public GameObject Pregunta;
     
     [Header("Menu botones")]
-    public GameObject Btn_Volver; public GameObject Btn_Menu;
+    public GameObject Btn_Volver; public GameObject Btn_Menu; public GameObject Aviso;
     public Color MyGreenColor, MyRedColor;
 
 
@@ -50,14 +50,14 @@ public class PreguntasJson : MonoBehaviour
 
         _www.AddField("code_estudiante", studentcode);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/enviar_actividades.php", _www))
+        using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/enviar_datos_app.php", _www))
         {
 
             yield return www.SendWebRequest();
 
-            if ((www.isNetworkError == null))
+            if ((www.isNetworkError == null || www.isHttpError))
             {
-
+                StartCoroutine(Esperar());
 
             }
             else
@@ -71,6 +71,13 @@ public class PreguntasJson : MonoBehaviour
 
     }
 
+    IEnumerator Esperar()
+    {
+        Aviso.SetActive(true);
+        yield return new WaitForSeconds(3);
+        Aviso.SetActive(false);
+
+    }
 
     private void processJsonData(string _url)
     {

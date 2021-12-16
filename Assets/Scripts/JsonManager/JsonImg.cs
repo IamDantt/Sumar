@@ -11,6 +11,7 @@ public class JsonImg : MonoBehaviour
     public InputField inputFieldstudent;
 
     public Image image;
+    public GameObject Aviso;
 
     //public int cantVar;
 
@@ -43,14 +44,15 @@ public class JsonImg : MonoBehaviour
 
         _www.AddField("code_estudiante", studentcode);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/enviar_actividades.php", _www))
+        using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/enviar_datos_app.php", _www))
         {
 
             yield return www.SendWebRequest();
 
-            if ((www.isNetworkError == null))
+            if ((www.isNetworkError == null || www.isHttpError))
             {
-
+                Aviso.SetActive(true);
+                StartCoroutine(Esperar());
 
             }
             else
@@ -62,15 +64,22 @@ public class JsonImg : MonoBehaviour
 
     }
 
-    
+    IEnumerator Esperar()
+    {
+        Aviso.SetActive(true);
+        yield return new WaitForSeconds(3);
+        Aviso.SetActive(false);
 
-     IEnumerator getTmg(string _url)
+    }
+
+
+    IEnumerator getTmg(string _url)
      {
 
         jsonData jsnData = JsonUtility.FromJson<jsonData>(_url);
 
-        GameObject buttonTemplate = transform.GetChild(0).gameObject;
-         GameObject g;
+        //GameObject buttonTemplate = transform.GetChild(0).gameObject;
+         //GameObject g;
 
 
         //Debug.Log(_url);
@@ -81,10 +90,10 @@ public class JsonImg : MonoBehaviour
            
 
 
-            for (int i = 0; i < x.img.Count; i++)
+            for (int i = 0; i < x.url_img.Count; i++)
             {
-                Debug.Log("url" + x.img.Count);
-                g = Instantiate(buttonTemplate, transform);
+                Debug.Log("url" + x.url_img.Count);
+                //g = Instantiate(buttonTemplate, transform);
                 //for (int j = 0; j < x.img.Count; j++)
                 //{
 
@@ -95,7 +104,7 @@ public class JsonImg : MonoBehaviour
 
                 
                      
-                     UnityWebRequest req = UnityWebRequestTexture.GetTexture(x.img[i]);                    
+                     UnityWebRequest req = UnityWebRequestTexture.GetTexture(x.url_img[i]);                    
                      yield return req.SendWebRequest();
 
                      if (req.isNetworkError || req.isHttpError)
@@ -106,7 +115,8 @@ public class JsonImg : MonoBehaviour
                      {
                          Texture2D img = ((DownloadHandlerTexture)req.downloadHandler).texture;
                          image.sprite = Sprite.Create(img, new Rect(0, 0, img.width, img.height), Vector2.zero);
-                         g.transform.GetChild(0).GetComponent<Image>().sprite = image.sprite;
+                         image.transform.GetComponent<Image>().sprite = image.sprite;
+                         //g.transform.GetChild(0).GetComponent<Image>().sprite = image.sprite;
                      }
 
 
@@ -120,7 +130,7 @@ public class JsonImg : MonoBehaviour
 
         }
 
-        Destroy(buttonTemplate);
+       // Destroy(buttonTemplate);
     } 
 
 

@@ -48,13 +48,12 @@ public class ObtenerTexto : MonoBehaviour
     public void panel_Confirmar()
     {
         panel_COnfirmar.SetActive(false);
-        SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
+        
     }
 
     public void OcultarPanel()
     {
         panel_COnfirmar.SetActive(false);
-        SfxManager.sfxInstance.Audio.PlayOneShot(SfxManager.sfxInstance.Confirm);
     }
 
     // Update is called once per frame

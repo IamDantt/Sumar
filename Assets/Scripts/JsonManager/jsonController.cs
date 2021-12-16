@@ -10,7 +10,7 @@ public class jsonController : MonoBehaviour
 {
     //public string jsonURL;
 
-    public Text nombre, idper, puntuacin /*TextoPregunta ,pregunta, calificacion, dispo*/;
+    public Text nombre,NombreActividad, idper, puntuacin /*TextoPregunta ,pregunta, calificacion, dispo*/;
 
     public InputField inputFieldstudent;
 
@@ -18,7 +18,7 @@ public class jsonController : MonoBehaviour
     public GameObject Login; public GameObject Menu; public GameObject Pregunta;
     //public Dropdown myDropdown;
     [Header("Menu botones")]
-    public GameObject Btn_Volver; public GameObject Btn_Menu;
+    public GameObject Btn_Volver; public GameObject Btn_Menu; public GameObject Aviso;
     public Color MyGreenColor, MyRedColor;
 
     //public Image image;
@@ -54,15 +54,18 @@ public class jsonController : MonoBehaviour
 
         _www.AddField("code_estudiante", studentcode);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/enviar_actividades.php", _www))
+        //https://campus.eduriot.com/php/enviar_datos.php
+        //using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/enviar_actividades.php", _www)) Copia de seguridad de link xD
+
+        using (UnityWebRequest www = UnityWebRequest.Post("https://campus.eduriot.com/php/enviar_datos.php", _www))
         {
             
             yield return www.SendWebRequest();
 
-            if ((www.isNetworkError == null))
+            if ((www.isNetworkError == null || www.isHttpError))
             {
-                
-
+                Debug.Log("El error es"+www.isNetworkError);
+                StartCoroutine(Esperar());
             }
             else
             {
@@ -75,9 +78,42 @@ public class jsonController : MonoBehaviour
         
     }
 
+    //867849521
 
     private void processJsonData(string _url)
     {
+        jsonData jsnData = JsonUtility.FromJson<jsonData>(_url);
+
+        //Debug.Log(_url);
+        
+        //Debug.Log(jsnData.nombre + " " + jsnData.apellido);
+        nombre.text = jsnData.nombre.ToString() + " " + jsnData.apellido.ToString();
+
+        //Debug.Log(jsnData.descripcion);
+
+        foreach (ActividadesList x in jsnData.actividades)
+        {
+            //Debug.Log("nombre actividad " + x.nombre); //Para poner nombre al boton de la actividad
+            NombreActividad.text = x.nombre.ToString();
+            //Debug.Log("Evaluada " + x.evaluada);
+            //Debug.Log("nombre disponibilidad " + x.disponibilidad);
+
+            for (int i = 0; i <  x.preguntas.Count; i++)
+            {
+                //Debug.Log("Pregunta " + x.preguntas[i]);
+            }
+            for (int i = 0; i < x.respuestas.Count; i++)
+            {
+                //Debug.Log("Respuestas " + x.respuestas[i]);
+            }
+
+        }
+
+        //1062527980
+
+
+
+        /*
         GameObject buttonTemplate = transform.GetChild(0).gameObject;
         GameObject g;
 
@@ -128,11 +164,8 @@ public class jsonController : MonoBehaviour
 
                     g.transform.GetChild(j + 1).GetComponent<Text>().text = x.preguntas[j];
 
-                    
                     //TextoPregunta.text = x.preguntas[j];
                     //g.GetComponent<Button>().onClick.AddEventListener(ItemClicked);
-
-
                 }
                 for (int i = 0; i < x.respuestas.Count; i++)
                 {
@@ -148,7 +181,17 @@ public class jsonController : MonoBehaviour
 
         }
         Destroy(buttonTemplate);
+        */
     }
+
+    IEnumerator Esperar()
+    {
+        Aviso.SetActive(true);
+        yield return new WaitForSeconds(3);
+        Aviso.SetActive(false);
+        
+    }
+
     
     public void ItemClicked()
     {
